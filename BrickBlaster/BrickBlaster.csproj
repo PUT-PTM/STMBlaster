@@ -107,6 +107,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Graphic.cs" />
     <Compile Include="Kontroler.cs" />
     <Compile Include="Mapa.cs" />
     <Compile Include="Player.cs" />

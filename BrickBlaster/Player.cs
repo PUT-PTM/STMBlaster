@@ -36,8 +36,7 @@ namespace BrickBlaster
            timerBomby = 8;
            zyje = true;
        }
-
-        public void Player_Poruszanie(bool[] tab)
+       public void Player_Poruszanie(bool[] tab, GraphicsDeviceManager graphics)
         {
             if (kara == false)
             {
@@ -84,6 +83,18 @@ namespace BrickBlaster
                 {
                     Position.Y = 25;
                 }
+            }
+            if (Position.Y > graphics.PreferredBackBufferHeight - (145))
+            {
+                Position.Y = graphics.PreferredBackBufferHeight - (145);
+            }
+            if (Position.X < 275)
+            {
+               Position.X = 275;
+            }
+            if (Position.X > graphics.PreferredBackBufferWidth - (125))
+            {
+                Position.X = graphics.PreferredBackBufferWidth - (125);
             }
         }
         public int[] Logika_Bomba_stawianie(bool[] tab)
