@@ -13,18 +13,20 @@ using Microsoft.Xna.Framework.Media;
 namespace BrickBlaster
 {
    public  class Player
-    {
+   {
+       #region -------------------Variables
        public int licznik_kary;
        public bool kara=false;
        public  string nazwa = "player";
        public short moc = 3;
-       public short szybkość = 2;
+       public float szybkość = 2.75F;
        public int maxBomb = 3;
        public int postawionychBomb = 0;
        public int timerBomby;
        public bool zyje = true;
        public Vector2 Position;
        public int idBomb=1300;
+       #endregion
        public Player(int Id_bomby)
        {
            nazwa = "player";

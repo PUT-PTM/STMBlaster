@@ -13,16 +13,17 @@ namespace BrickBlaster
 {
     class Graphic
     {
-       // -------------------------------------Objects---------------------------------------------------------
+        #region -------------------------------------Objects---------------------------------------------------------
         GraphicsDeviceManager graphics;
         ContentManager Content;
-        SpriteBatch spriteBatch;
         Mapa Mapa1;
+        Menu Menu1;
         Player Gracz1;
         Player Gracz2;
         Kontroler Klawiatura1;
         KeyboardState keyboardState;
-       // --------------------------------------Textures--------------------------------------------------------
+        #endregion
+        #region  -------------------------------------Textures2D--------------------------------------------------------
         Texture2D Mapa;
         Texture2D Man_prawo;
         Texture2D Man_lewo;
@@ -75,25 +76,36 @@ namespace BrickBlaster
         Texture2D Player1win;
         Texture2D Player2win;
         Texture2D remis;
-        //-----------------------------------------variables---------------------------------------------------------//
+        Texture2D menuPlay;
+        Texture2D menuOptions;
+        Texture2D menuExit;
+        Texture2D menuCredits;
+        Texture2D menuKeyboard;
+        Texture2D menuSTM;
+        Texture2D menuBack;
+        #endregion
+        #region-------------------------------------Variables-------------------------------------------------------
         int zamiana = 0;
         int Zamiana;
         Game1.Stan GameState;
+        #endregion
+        #region -------------------------------------SoundEffects-declaration---------------------------------
         public SoundEffect muzyka;
         public SoundEffect remis_sound;
         public  SoundEffect p1w_sound;
         public SoundEffect p2w_sound;
         public SoundEffectInstance muzykainstancja;
-        
+        #endregion
         public Graphic()
             {
             
         }
-        public void PrzypiszReferencje(GraphicsDeviceManager graphics, ContentManager Content, Mapa Mapa1,Player Gracz1,Player Gracz2,Kontroler Klawiatura1,Game1.Stan GameState, KeyboardState keyboardState)
+        public void PrzypiszReferencje(GraphicsDeviceManager graphics, ContentManager Content, Mapa Mapa1,Menu Menu1,Player Gracz1,Player Gracz2,Kontroler Klawiatura1,Game1.Stan GameState, KeyboardState keyboardState)
         {
             this.graphics = graphics;
             this.Content = Content;
             this.Mapa1 = Mapa1;
+            this.Menu1 = Menu1;
             this.Gracz1 = Gracz1;
             this.Gracz2 = Gracz2;
             this.Klawiatura1 = Klawiatura1;
@@ -173,6 +185,17 @@ namespace BrickBlaster
             p2w_sound = Content.Load<SoundEffect>("player2wins");
             Mapa1.Czacha = Content.Load<SoundEffect>("czaszka");
             muzykainstancja = muzyka.CreateInstance();
+            Menu1.menu_play_sound = Content.Load<SoundEffect>("menu_play_sound");
+            Menu1.menu_przeskok_sound = Content.Load<SoundEffect>("menu_przeskok_sound");
+        }
+        public void Load_Menu_Graphic()
+        {
+            menuPlay = Content.Load<Texture2D>("menu_play");
+            menuOptions = Content.Load<Texture2D>("menu_options");
+            menuCredits = Content.Load<Texture2D>("menu_credits");
+            menuExit = Content.Load<Texture2D>("menu_exit");
+            menuKeyboard = Content.Load<Texture2D>("menu_options_keyboard");
+            menuSTM = Content.Load<Texture2D>("menu_options_stm");
         }
         public int ZamianaUstaw()
         {
@@ -632,6 +655,24 @@ namespace BrickBlaster
                     GameState = Game1.Stan.Gra;
                 }
             }
+        }
+        public  void Grafika_Menu(SpriteBatch spriteBatch, int opcja,GameTime gameTime)
+        {
+                if (opcja == 1)
+                    spriteBatch.Draw(menuPlay, new Vector2(0, -128), Color.White);
+                if (opcja == 2)
+                    spriteBatch.Draw(menuOptions, new Vector2(0, -128), Color.White);
+                if (opcja == 3)
+                    spriteBatch.Draw(menuCredits, new Vector2(0, -128), Color.White);
+                if (opcja == 4)
+                    spriteBatch.Draw(menuExit, new Vector2(0, -128), Color.White);
+        }
+        public void Grafika_Menu2(SpriteBatch spriteBatch, int opcja,int opcjaController, GameTime gameTime)
+        {
+                if (opcjaController == 1)
+                spriteBatch.Draw(menuKeyboard, new Vector2(0, -128), Color.White);
+                if (opcjaController == 2)
+                spriteBatch.Draw(menuSTM, new Vector2(0, -128), Color.White);
         }
         public   void Sprawdzanie_pol_tabeli(int i, int l, Mapa Mapa,SpriteBatch spriteBatch)
         {

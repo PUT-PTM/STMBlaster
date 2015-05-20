@@ -14,11 +14,14 @@ namespace BrickBlaster
 {
     class Mapa
     {
-
+        #region --------------------SoundEffectsDeclaration
         public SoundEffect wybuch;
         public SoundEffect lost;
         public SoundEffect Bonus;
         public SoundEffect Czacha;
+        #endregion
+        #region --------------------Variables/Enums
+        bool[,] zniszczone= new bool [13,11];
         public int Licznik=0;
         public int[,] tab_mapa = new int[13, 11];
         public enum brick { 
@@ -33,6 +36,7 @@ namespace BrickBlaster
             Pion=41000}
         public enum bonus { 
             Bomb = 400, Power = 401, PunishBP = 402, PunishSides = 403 };
+        #endregion
         private void Czyszczenie_mapa()
         {
             for (int i = 0; i < 13; i ++)
@@ -195,27 +199,34 @@ namespace BrickBlaster
                                         }
                                         else
                                         {
-                                            if (tab[(int)Kontroler.klawisz.Up] == true && tab[(int)Kontroler.klawisz.Left] == true)
+                                            if (tab[(int)Kontroler.klawisz.Up] == true && tab[(int)Kontroler.klawisz.Left] == true && tab[(int)Kontroler.klawisz.Right] == false && tab[(int)Kontroler.klawisz.Down]==false)
                                             {
                                                 Position.Y -= 2;
                                                 Position.X -= 2;
                                             }
-                                            if (tab[(int)Kontroler.klawisz.Up] == true && tab[(int)Kontroler.klawisz.Right] == true)
+                                            if (tab[(int)Kontroler.klawisz.Up] == true && tab[(int)Kontroler.klawisz.Right] == true&&tab[(int)Kontroler.klawisz.Left] == false && tab[(int)Kontroler.klawisz.Down]==false)
                                             {
                                                 Position.Y -= 2;
                                                 Position.X += 2;
                                             }
-                                            if (tab[(int)Kontroler.klawisz.Down] == true && tab[(int)Kontroler.klawisz.Left] == true)
+                                            if (tab[(int)Kontroler.klawisz.Down] == true && tab[(int)Kontroler.klawisz.Left] == true&&tab[(int)Kontroler.klawisz.Right] == false && tab[(int)Kontroler.klawisz.Up]==false)
                                             {
                                                 Position.Y += 2;
                                                 Position.X -= 2;
                                             }
-                                            if (tab[(int)Kontroler.klawisz.Down] == true && tab[(int)Kontroler.klawisz.Right] == true)
+                                            if (tab[(int)Kontroler.klawisz.Down] == true && tab[(int)Kontroler.klawisz.Right] == true&&tab[(int)Kontroler.klawisz.Left] == false && tab[(int)Kontroler.klawisz.Up]==false)
                                             {
                                                 Position.Y += 2;
                                                 Position.X += 2;
                                             }
-
+                                            if(tab[(int)Kontroler.klawisz.Right] == true && tab[(int)Kontroler.klawisz.Left]==true&&tab[(int)Kontroler.klawisz.Up] ==true&&tab[(int)Kontroler.klawisz.Down] ==false )
+                                            {
+                                              Position.Y = (-5) + (l * 50);
+                                            }
+                                             if(tab[(int)Kontroler.klawisz.Right] == true && tab[(int)Kontroler.klawisz.Left]==true&&tab[(int)Kontroler.klawisz.Down] ==true&&tab[(int)Kontroler.klawisz.Up] ==false ) 
+                                            {
+                                                Position.Y = 80 + (l * 50);
+                                            }
                                         }
 
                                     }
@@ -274,27 +285,27 @@ namespace BrickBlaster
                     if (tab_mapa[i + k, l] == (int)brick.Breakable)
                     {
 
-                       Losowanie = rnd.Next(1, 20);
-                       if (Losowanie == 3||Losowanie == 9)
-                       {
-                           tab_mapa[i + k, l] = (int)fire.RightBonusBomb;
-                       }
-                       if (Losowanie == 4||Losowanie == 10)
-                       {
-                           tab_mapa[i + k, l] =(int)fire.RightBonusPower;
-                       }
-                       if (Losowanie == 5)
-                       {
-                           tab_mapa[i + k, l] = (int)fire.RightPunishPB;
-                       }
-                       if (Losowanie == 6)
-                       {
-                           tab_mapa[i+k, l ] = (int)fire.RightPunishSides;
-                       }
-                       if (Losowanie != 3 && Losowanie != 4 && Losowanie != 5 && Losowanie != 6&& Losowanie != 9 && Losowanie !=10 )
-                       {
-                           tab_mapa[i + k, l] = (int)fire.Right;
-                       }
+                        Losowanie = rnd.Next(1, 20);
+                        if (Losowanie == 3 || Losowanie == 9)
+                        {
+                            tab_mapa[i + k, l] = (int)fire.RightBonusBomb;
+                        }
+                        if (Losowanie == 4 || Losowanie == 10)
+                        {
+                            tab_mapa[i + k, l] = (int)fire.RightBonusPower;
+                        }
+                        if (Losowanie == 5)
+                        {
+                            tab_mapa[i + k, l] = (int)fire.RightPunishPB;
+                        }
+                        if (Losowanie == 6)
+                        {
+                            tab_mapa[i + k, l] = (int)fire.RightPunishSides;
+                        }
+                        if (Losowanie != 3 && Losowanie != 4 && Losowanie != 5 && Losowanie != 6 && Losowanie != 9 && Losowanie != 10)
+                        {
+                            tab_mapa[i + k, l] = (int)fire.Right;
+                        }
                         // postawionych_bomb--;
                         break;
                     }
@@ -305,7 +316,7 @@ namespace BrickBlaster
                     }
                     if (tab_mapa[i + k, l] >= Gracz1.idBomb && tab_mapa[i + k, l] <= (Gracz1.idBomb + Gracz1.timerBomby))
                     {
-                        tab_mapa[i + k, l] =(int)fire.Middle;
+                        tab_mapa[i + k, l] = (int)fire.Middle;
                         //postawionych_bomb--;
                         Logika_Bomba_Wybuchv2(i + k, l, Gracz1, Gracz2);
                         break;
@@ -314,7 +325,7 @@ namespace BrickBlaster
                     {
                         tab_mapa[i + k, l] = (int)fire.Middle;
                         //postawionych_bomb--;
-                        Logika_Bomba_Wybuchv2(i + k, l, Gracz2,Gracz1);
+                        Logika_Bomba_Wybuchv2(i + k, l, Gracz2, Gracz1);
                         break;
                     }
                     if (tab_mapa[i + k, l] != (int)fire.Middle)
@@ -328,7 +339,7 @@ namespace BrickBlaster
             {
                 if (i - k >= 0)
                 {
-                    Logika_Smierc(i - k, l,Gracz1);
+                    Logika_Smierc(i - k, l, Gracz1);
                     if (Gracz1.zyje == false)
                     {
                         break;
@@ -336,11 +347,11 @@ namespace BrickBlaster
                     if (tab_mapa[i - k, l] == (int)brick.Breakable)
                     {
                         Losowanie = rnd.Next(1, 20);
-                        if (Losowanie == 3|| Losowanie==9)
+                        if (Losowanie == 3 || Losowanie == 9)
                         {
                             tab_mapa[i - k, l] = (int)fire.LeftBonusBomb;
                         }
-                        if (Losowanie == 4|| Losowanie==10)
+                        if (Losowanie == 4 || Losowanie == 10)
                         {
                             tab_mapa[i - k, l] = (int)fire.LeftBonusPower;
                         }
@@ -352,7 +363,7 @@ namespace BrickBlaster
                         {
                             tab_mapa[i - k, l] = (int)fire.LeftBonusBomb;
                         }
-                        if (Losowanie != 3 && Losowanie != 4 && Losowanie != 5 && Losowanie != 6&& Losowanie != 9 && Losowanie !=10 )
+                        if (Losowanie != 3 && Losowanie != 4 && Losowanie != 5 && Losowanie != 6 && Losowanie != 9 && Losowanie != 10)
                         {
                             tab_mapa[i - k, l] = (int)fire.Left;
                         }
@@ -365,13 +376,13 @@ namespace BrickBlaster
                     if (tab_mapa[i - k, l] >= Gracz1.idBomb && tab_mapa[i - k, l] <= (Gracz1.idBomb + Gracz1.timerBomby))
                     {
                         tab_mapa[i - k, l] = (int)fire.Middle;
-                        Logika_Bomba_Wybuchv2(i - k, l,Gracz1,Gracz2);
+                        Logika_Bomba_Wybuchv2(i - k, l, Gracz1, Gracz2);
                         break;
                     }
                     if (tab_mapa[i - k, l] >= Gracz2.idBomb && tab_mapa[i - k, l] <= (Gracz2.idBomb + Gracz2.timerBomby))
                     {
                         tab_mapa[i - k, l] = (int)fire.Middle;
-                        Logika_Bomba_Wybuchv2(i - k, l,Gracz2, Gracz1);
+                        Logika_Bomba_Wybuchv2(i - k, l, Gracz2, Gracz1);
                         break;
                     }
                     if (tab_mapa[i - k, l] != (int)fire.Middle)
@@ -392,17 +403,17 @@ namespace BrickBlaster
                     if (tab_mapa[i, l + k] == (int)brick.Breakable)
                     {
                         Losowanie = rnd.Next(1, 10);
-                        if (Losowanie == 3||Losowanie==9)
+                        if (Losowanie == 3 || Losowanie == 9)
                         {
-                            tab_mapa[i , l+k] = (int)fire.DownBonusBomb;
+                            tab_mapa[i, l + k] = (int)fire.DownBonusBomb;
                         }
-                        if (Losowanie == 4||Losowanie==10)
+                        if (Losowanie == 4 || Losowanie == 10)
                         {
-                            tab_mapa[i , l+k] = (int)fire.DownBonusPower;
+                            tab_mapa[i, l + k] = (int)fire.DownBonusPower;
                         }
                         if (Losowanie == 5)
                         {
-                            tab_mapa[i , l+k] = (int)fire.DownPunishPB;
+                            tab_mapa[i, l + k] = (int)fire.DownPunishPB;
                         }
                         if (Losowanie == 6)
                         {
@@ -427,7 +438,7 @@ namespace BrickBlaster
                     if (tab_mapa[i, l + k] >= Gracz2.idBomb && tab_mapa[i, l + k] <= (Gracz2.idBomb + Gracz2.timerBomby))
                     {
                         tab_mapa[i, l + k] = (int)fire.Middle;
-                        Logika_Bomba_Wybuchv2(i, l + k,Gracz2, Gracz1);
+                        Logika_Bomba_Wybuchv2(i, l + k, Gracz2, Gracz1);
                         break;
                     }
                     if (tab_mapa[i, l + k] != (int)fire.Middle)
@@ -448,17 +459,17 @@ namespace BrickBlaster
                     if (tab_mapa[i, l - k] == (int)brick.Breakable)
                     {                                       //BONUSY POJAWIANIE SIE ------------------------------------------------------
                         Losowanie = rnd.Next(1, 10);
-                        if (Losowanie == 3||Losowanie==9)
+                        if (Losowanie == 3 || Losowanie == 9)
                         {
-                            tab_mapa[i , l - k] = (int)fire.UpBonusBomb;
+                            tab_mapa[i, l - k] = (int)fire.UpBonusBomb;
                         }
-                        if (Losowanie == 4|| Losowanie==10)
+                        if (Losowanie == 4 || Losowanie == 10)
                         {
                             tab_mapa[i, l - k] = (int)fire.UpBonusPower;
                         }
                         if (Losowanie == 5)
                         {
-                            tab_mapa[i , l-k] = (int)fire.DownPunishPB;
+                            tab_mapa[i, l - k] = (int)fire.DownPunishPB;
                         }
                         if (Losowanie == 6)
                         {
@@ -483,7 +494,7 @@ namespace BrickBlaster
                     if (tab_mapa[i, l - k] >= Gracz2.idBomb && tab_mapa[i, l - k] <= (Gracz2.idBomb + Gracz2.timerBomby))
                     {
                         tab_mapa[i, l - k] = (int)fire.Middle;
-                        Logika_Bomba_Wybuchv2(i, l - k,Gracz2, Gracz1);
+                        Logika_Bomba_Wybuchv2(i, l - k, Gracz2, Gracz1);
                         break;
                     }
                     if (tab_mapa[i, l - k] != (int)fire.Middle)
@@ -518,7 +529,7 @@ namespace BrickBlaster
                 }
             }
         }
-        public void Sprawdz_Bonus(Player Gracz1,int Licznik_Bonusu)
+        public void Sprawdz_Bonus(Player Gracz1,Player Gracz2,int Licznik_Bonusu)
         {          
             int u = (int)((Gracz1.Position.Y - 20) / 50);
             int j = (int)((Gracz1.Position.X - 250) / 50);   
@@ -557,7 +568,7 @@ namespace BrickBlaster
             {
                tab_mapa[j, u] = 0;
                Gracz1.licznik_kary = 0;
-               Gracz1.kara = true;
+               Gracz2.kara = true;
                Czacha.Play();
             }
             if (Gracz1.licznik_kary >= 10)
