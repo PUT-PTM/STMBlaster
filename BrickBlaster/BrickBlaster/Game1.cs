@@ -35,35 +35,66 @@ namespace BrickBlaster
         #endregion
         void Logika_Gry()
         {
-            
-           /* if (Menu1.CurrentControllerState == Menu1.oController.STM)
+            #region KEYBOARD STEROWANIE
+            if ((int)Menu1.CurrentControllerState == 1)
             {
-                Gracz1.Player_Poruszanie(Klawiatura1.STMZwracanie1(), graphics);                 
-            }
-             */
-            //Klawiatura1.STMZwracanie1();
-            #region --------------------Player1 Movement
                 Gracz1.Player_Poruszanie(Klawiatura1.Zwracanie(), graphics);
+                Mapa1.Sprawdz_Bonus(Gracz1, Gracz2, licznik_klatek);
+                Gracz2.Player_Poruszanie(Klawiatura1.Zwracanie2(), graphics);
+                Mapa1.Sprawdz_Bonus(Gracz2, Gracz1, licznik_klatek);
+                Gracz1.Zwieksz_liczbe_bomb_postawionych(Mapa1.stawianie_bomby(Gracz1.Logika_Bomba_stawianie(Klawiatura1.Zwracanie()), Gracz1, Gracz2));
+                Mapa1.Logika_bomba(licznik_klatek, Gracz1, Gracz2);
+                Gracz2.Zwieksz_liczbe_bomb_postawionych(Mapa1.stawianie_bomby(Gracz2.Logika_Bomba_stawianie(Klawiatura1.Zwracanie2()), Gracz2, Gracz1));
+                Mapa1.Logika_bomba(licznik_klatek, Gracz2, Gracz1);
+                Gracz1.Aktualizuj_Pozycje(Mapa1.kolizje(Gracz1.Position, Klawiatura1.Zwracanie(),Gracz1.kara));
+                Gracz2.Aktualizuj_Pozycje(Mapa1.kolizje(Gracz2.Position, Klawiatura1.Zwracanie2(), Gracz2.kara));
+            }
+            #endregion
+            #region STM STEROWANIE
+           if ((int)Menu1.CurrentControllerState==2)
+            {
+                Gracz1.Player_Poruszanie(Klawiatura1.STMZwracanie1(), graphics);
+                Mapa1.Sprawdz_Bonus(Gracz1, Gracz2, licznik_klatek);
+                Gracz2.Player_Poruszanie(Klawiatura1.STMZwracanie2(), graphics);
+                Mapa1.Sprawdz_Bonus(Gracz2, Gracz1, licznik_klatek);
+                Gracz1.Zwieksz_liczbe_bomb_postawionych(Mapa1.stawianie_bomby(Gracz1.Logika_Bomba_stawianie(Klawiatura1.STMZwracanie1()), Gracz1, Gracz2));
+                Mapa1.Logika_bomba(licznik_klatek, Gracz1, Gracz2);
+                Gracz2.Zwieksz_liczbe_bomb_postawionych(Mapa1.stawianie_bomby(Gracz2.Logika_Bomba_stawianie(Klawiatura1.STMZwracanie2()), Gracz2, Gracz1));
+                Mapa1.Logika_bomba(licznik_klatek, Gracz2, Gracz1);
+                Gracz1.Aktualizuj_Pozycje(Mapa1.kolizje(Gracz1.Position, Klawiatura1.STMZwracanie1(), Gracz1.kara));
+                Gracz2.Aktualizuj_Pozycje(Mapa1.kolizje(Gracz2.Position, Klawiatura1.STMZwracanie2(), Gracz2.kara));
+            }
+            #endregion
+            /*
+            #region --------------------Player1 Movement
+            Gracz1.Player_Poruszanie(Klawiatura1.STMZwracanie1(), graphics); 
+           // Gracz1.Player_Poruszanie(Klawiatura1.Zwracanie(), graphics);
             Mapa1.Sprawdz_Bonus(Gracz1,Gracz2,licznik_klatek);
             #endregion
             #region --------------------Player2 Movement           
-            Gracz2.Player_Poruszanie(Klawiatura1.Zwracanie2(),graphics);             
+            Gracz2.Player_Poruszanie(Klawiatura1.STMZwracanie2(), graphics);    
+          //  Gracz2.Player_Poruszanie(Klawiatura1.Zwracanie2(),graphics);             
             Mapa1.Sprawdz_Bonus(Gracz2,Gracz1,licznik_klatek);
             #endregion
             #region --------------------Player1 Bomb Logic
-            Gracz1.Zwieksz_liczbe_bomb_postawionych(Mapa1.stawianie_bomby(Gracz1.Logika_Bomba_stawianie(Klawiatura1.Zwracanie()), Gracz1,Gracz2));
+            Gracz1.Zwieksz_liczbe_bomb_postawionych(Mapa1.stawianie_bomby(Gracz1.Logika_Bomba_stawianie(Klawiatura1.STMZwracanie1()), Gracz1, Gracz2));
+           // Gracz1.Zwieksz_liczbe_bomb_postawionych(Mapa1.stawianie_bomby(Gracz1.Logika_Bomba_stawianie(Klawiatura1.Zwracanie()), Gracz1,Gracz2));
             Mapa1.Logika_bomba(licznik_klatek, Gracz1,Gracz2);
             #endregion
             #region --------------------Player2 Bomb Logic
-            Gracz2.Zwieksz_liczbe_bomb_postawionych(Mapa1.stawianie_bomby(Gracz2.Logika_Bomba_stawianie(Klawiatura1.Zwracanie2()),Gracz2, Gracz1));   
+            Gracz2.Zwieksz_liczbe_bomb_postawionych(Mapa1.stawianie_bomby(Gracz2.Logika_Bomba_stawianie(Klawiatura1.STMZwracanie2()), Gracz2, Gracz1));   
+          //  Gracz2.Zwieksz_liczbe_bomb_postawionych(Mapa1.stawianie_bomby(Gracz2.Logika_Bomba_stawianie(Klawiatura1.Zwracanie2()),Gracz2, Gracz1));   
             Mapa1.Logika_bomba(licznik_klatek, Gracz2,Gracz1);
             #endregion
             #region --------------------Collisions
             //-----------------------------------------------------------------------------------------------------------------Kolizje :  Gracz1 -----------------------------------------------------------------------------
-            Gracz1.Aktualizuj_Pozycje(Mapa1.kolizje(Gracz1.Position, Klawiatura1.Zwracanie(),Gracz1.kara));
+            Gracz1.Aktualizuj_Pozycje(Mapa1.kolizje(Gracz1.Position, Klawiatura1.STMZwracanie1(), Gracz1.kara));
+          //  Gracz1.Aktualizuj_Pozycje(Mapa1.kolizje(Gracz1.Position, Klawiatura1.Zwracanie(),Gracz1.kara));
             //-----------------------------------------------------------------------------------------------------------------Kolizje :  Gracz2 -----------------------------------------------------------------------------
-            Gracz2.Aktualizuj_Pozycje(Mapa1.kolizje(Gracz2.Position, Klawiatura1.Zwracanie2(),Gracz2.kara));
+            Gracz2.Aktualizuj_Pozycje(Mapa1.kolizje(Gracz2.Position, Klawiatura1.STMZwracanie2(), Gracz2.kara)); 
+           // Gracz2.Aktualizuj_Pozycje(Mapa1.kolizje(Gracz2.Position, Klawiatura1.Zwracanie2(),Gracz2.kara));
             #endregion
+            */
             #region --------------------Death - Delay
             Mapa1.Smierc_delay(Gracz1);
             Mapa1.Smierc_delay(Gracz2);

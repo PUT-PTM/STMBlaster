@@ -13,6 +13,7 @@ using System.Diagnostics;
         public Int16 axisX;
         public Int16 axisY;
         public Int16 axisZ;
+       public byte button1state;
         private bool _keepListenieng = true;
         private Thread t;
         public SerialPort Port;
@@ -20,23 +21,22 @@ using System.Diagnostics;
         {
             _keepListenieng = false;
         }
-        public STMReceiver()
+        public STMReceiver(string numerPortu)
         {
-            Port = new SerialPort("COM9", 112500, Parity.None, 8, StopBits.One);
+            Port = new SerialPort(numerPortu, 112500, Parity.None, 8, StopBits.One);
             if (Port == null)
             {
-                Debug.WriteLine("Error , Port = Null");
+               // Debug.WriteLine("Error , Port = Null");
             }
             
             foreach (string port2 in SerialPort.GetPortNames())
             {
-                Debug.WriteLine(port2);
+                //Debug.WriteLine(port2);
             }
-
             try
             {
                 Port.Open();
-                Debug.WriteLine("Port open OK");
+               // Debug.WriteLine("Port open OK");
             }
 
             catch
@@ -55,7 +55,7 @@ using System.Diagnostics;
                 byte[] buffer = new byte[2];
                 if (command == 0xAA)
                 {
-                    Debug.WriteLine("Accelerometer command nr: " + command + "\n");
+                   
 
                     buffer[0] = (byte)Port.ReadByte();
                     buffer[1] = (byte)Port.ReadByte();
@@ -65,24 +65,22 @@ using System.Diagnostics;
                     axisY = BitConverter.ToInt16(buffer, 0);                  
                     buffer[0] = (byte)Port.ReadByte();
                     buffer[1] = (byte)Port.ReadByte();
-                    axisZ = BitConverter.ToInt16(buffer, 0);     
-                    buffer[0] = (byte)Port.ReadByte();
-                    buffer[1] = (byte)Port.ReadByte();
-                    Int16 max = BitConverter.ToInt16(buffer, 0);
+                    axisZ = BitConverter.ToInt16(buffer, 0);                    
                     byte crc = (byte)Port.ReadByte();
                     #region DEBUG Messages
-                    Debug.WriteLine("X axis: " + axisX + "\n");
+                    /* Debug.WriteLine("Accelerometer command nr: " + command + "\n");
+                   Debug.WriteLine("X axis: " + axisX + "\n");
                     Debug.WriteLine("Y axis: " + axisY + "\n");
                     Debug.WriteLine("Z axis: " + axisZ + "\n");
                     Debug.WriteLine("Accelerometer max: " + max + "\n");
-                    Debug.WriteLine("CRC: " + crc + "\n\n");
+                    Debug.WriteLine("CRC: " + crc + "\n\n");*/
                     #endregion
                 }
+
                 else if (command == 0x38)
-                {
-                    Debug.WriteLine("Button command nr: " + command + "\n");
-                    byte button1state = (byte)Port.ReadByte();
-                    Debug.WriteLine("Button 1 state: " + button1state + "\n");
+                {                   // Debug.WriteLine("Button command nr: " + command + "\n");
+                     button1state = (byte)Port.ReadByte();
+                 //   Debug.WriteLine("Button 1 state: " + button1state + "\n");
                     #region Additional Buttons
                     byte button2state = (byte)Port.ReadByte();
                     //Debug.WriteLine("Button 2 state: " + button2state + "\n");

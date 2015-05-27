@@ -435,11 +435,17 @@ namespace BrickBlaster
                 //--------------------------------------------------------------------------------------------------------------------Grafika poruszania się : Gracz1 ------------------------------------------------------------
                 if (Gracz1.Position.Y > 62 + (l - 1) * 50)
                 {
+                    if ((int)Menu1.CurrentControllerState == 2)
+                    Grafika_Poruszanie2(Gracz1, Klawiatura1.STMZwracanie1(), Zamiana, spriteBatch);
+                    if((int)Menu1.CurrentControllerState==1)
                     Grafika_Poruszanie2(Gracz1, Klawiatura1.Zwracanie(), Zamiana,spriteBatch);
                 }
                 //--------------------------------------------------------------------------------------------------------------------Grafika poruszania się : Gracz2 ------------------------------------------------------------                                   
                 if (Gracz2.Position.Y > 62 + (l - 1) * 50)
                 {
+                    if((int)Menu1.CurrentControllerState==2)
+                    Grafika_Poruszanie2_Player2(Gracz2, Klawiatura1.STMZwracanie2(), Zamiana, spriteBatch);
+                    if((int)Menu1.CurrentControllerState==1)
                     Grafika_Poruszanie2_Player2(Gracz2, Klawiatura1.Zwracanie2(), Zamiana, spriteBatch);
                 }
 
