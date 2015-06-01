@@ -152,9 +152,16 @@ namespace BrickBlaster
                  if (keyboardState.IsKeyDown(Keys.Escape))
                  {
                      Game1.GameState = Game1.Stan.Menu;
+<<<<<<< HEAD
                      x = 190;
                      y = 745;
                      if (menu_Credits.State == SoundState.Playing)
+=======
+                      x = 190;
+                      y = 745;
+                      
+                      if (menu_Credits.State == SoundState.Playing)
+>>>>>>> 251110a83867c8298de55c746d94a7ce756e0da2
                      menu_Credits.Stop();
                  }
                  else
