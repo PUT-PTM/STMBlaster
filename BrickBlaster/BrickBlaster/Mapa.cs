@@ -273,15 +273,17 @@ namespace BrickBlaster
             int Losowanie;
             Random rnd = new Random();
             Logika_Smierc(i, l, Gracz1);
+            Logika_Smierc(i, l, Gracz2);
             for (int k = 1; k <= Gracz1.moc; k++)
             {
                 if (i + k <= 12)
                 {
                     Logika_Smierc(i + k, l, Gracz1);
-                    if (Gracz1.zyje == false)
+                    Logika_Smierc(i + k, l, Gracz2);
+                   /* if (Gracz1.zyje == false)
                     {
                         break;
-                    }
+                    }*/
                     if (tab_mapa[i + k, l] == (int)brick.Breakable)
                     {
 
@@ -340,10 +342,11 @@ namespace BrickBlaster
                 if (i - k >= 0)
                 {
                     Logika_Smierc(i - k, l, Gracz1);
-                    if (Gracz1.zyje == false)
+                    Logika_Smierc(i -k, l, Gracz2);
+                   /* if (Gracz1.zyje == false)
                     {
                         break;
-                    }
+                    }*/
                     if (tab_mapa[i - k, l] == (int)brick.Breakable)
                     {
                         Losowanie = rnd.Next(1, 20);
@@ -396,10 +399,11 @@ namespace BrickBlaster
                 if (l + k <= 10)
                 {
                     Logika_Smierc(i, l + k, Gracz1);
-                    if (Gracz1.zyje == false)
+                    Logika_Smierc(i, l+k, Gracz2);
+                  /*  if (Gracz1.zyje == false)
                     {
                         break;
-                    }
+                    }*/
                     if (tab_mapa[i, l + k] == (int)brick.Breakable)
                     {
                         Losowanie = rnd.Next(1, 10);
@@ -452,10 +456,11 @@ namespace BrickBlaster
                 if (l - k >= 0)
                 {
                     Logika_Smierc(i, l - k, Gracz1);
-                    if (Gracz1.zyje == false)
+                    Logika_Smierc(i, l-k, Gracz2);
+                   /* if (Gracz1.zyje == false)
                     {
                         break;
-                    }
+                    }*/
                     if (tab_mapa[i, l - k] == (int)brick.Breakable)
                     {                                       //BONUSY POJAWIANIE SIE ------------------------------------------------------
                         Losowanie = rnd.Next(1, 10);

@@ -32,73 +32,47 @@ namespace BrickBlaster
         Kontroler Klawiatura1 = new Kontroler();
         Graphic Graphic= new Graphic();
         public static int licznik_klatek = 0;
+        public static bool Sound = true;
         #endregion
         void Logika_Gry()
         {
-            #region KEYBOARD STEROWANIE
-            if ((int)Menu1.CurrentControllerState == 1)
+            if (GameState == Stan.Gra)
             {
-                Gracz1.Player_Poruszanie(Klawiatura1.Zwracanie(), graphics);
-                Mapa1.Sprawdz_Bonus(Gracz1, Gracz2, licznik_klatek);
-                Gracz2.Player_Poruszanie(Klawiatura1.Zwracanie2(), graphics);
-                Mapa1.Sprawdz_Bonus(Gracz2, Gracz1, licznik_klatek);
-                Gracz1.Zwieksz_liczbe_bomb_postawionych(Mapa1.stawianie_bomby(Gracz1.Logika_Bomba_stawianie(Klawiatura1.Zwracanie()), Gracz1, Gracz2));
-                Mapa1.Logika_bomba(licznik_klatek, Gracz1, Gracz2);
-                Gracz2.Zwieksz_liczbe_bomb_postawionych(Mapa1.stawianie_bomby(Gracz2.Logika_Bomba_stawianie(Klawiatura1.Zwracanie2()), Gracz2, Gracz1));
-                Mapa1.Logika_bomba(licznik_klatek, Gracz2, Gracz1);
-                Gracz1.Aktualizuj_Pozycje(Mapa1.kolizje(Gracz1.Position, Klawiatura1.Zwracanie(),Gracz1.kara));
-                Gracz2.Aktualizuj_Pozycje(Mapa1.kolizje(Gracz2.Position, Klawiatura1.Zwracanie2(), Gracz2.kara));
+                #region KEYBOARD STEROWANIE
+                if ((int)Menu1.CurrentControllerState == 1)
+                {
+                    Gracz1.Player_Poruszanie(Klawiatura1.Zwracanie(), graphics);
+                    Mapa1.Sprawdz_Bonus(Gracz1, Gracz2, licznik_klatek);
+                    Gracz2.Player_Poruszanie(Klawiatura1.Zwracanie2(), graphics);
+                    Mapa1.Sprawdz_Bonus(Gracz2, Gracz1, licznik_klatek);
+                    Gracz1.Zwieksz_liczbe_bomb_postawionych(Mapa1.stawianie_bomby(Gracz1.Logika_Bomba_stawianie(Klawiatura1.Zwracanie()), Gracz1, Gracz2));
+                    Mapa1.Logika_bomba(licznik_klatek, Gracz1, Gracz2);
+                    Gracz2.Zwieksz_liczbe_bomb_postawionych(Mapa1.stawianie_bomby(Gracz2.Logika_Bomba_stawianie(Klawiatura1.Zwracanie2()), Gracz2, Gracz1));
+                    Mapa1.Logika_bomba(licznik_klatek, Gracz2, Gracz1);
+                    Gracz1.Aktualizuj_Pozycje(Mapa1.kolizje(Gracz1.Position, Klawiatura1.Zwracanie(), Gracz1.kara));
+                    Gracz2.Aktualizuj_Pozycje(Mapa1.kolizje(Gracz2.Position, Klawiatura1.Zwracanie2(), Gracz2.kara));
+                }
+                #endregion
+                #region STM STEROWANIE
+                if ((int)Menu1.CurrentControllerState == 2)
+                {
+                    Gracz1.Player_Poruszanie(Klawiatura1.STMZwracanie1(), graphics);
+                    Mapa1.Sprawdz_Bonus(Gracz1, Gracz2, licznik_klatek);
+                    Gracz2.Player_Poruszanie(Klawiatura1.STMZwracanie2(), graphics);
+                    Mapa1.Sprawdz_Bonus(Gracz2, Gracz1, licznik_klatek);
+                    Gracz1.Zwieksz_liczbe_bomb_postawionych(Mapa1.stawianie_bomby(Gracz1.Logika_Bomba_stawianie(Klawiatura1.STMZwracanie1()), Gracz1, Gracz2));
+                    Mapa1.Logika_bomba(licznik_klatek, Gracz1, Gracz2);
+                    Gracz2.Zwieksz_liczbe_bomb_postawionych(Mapa1.stawianie_bomby(Gracz2.Logika_Bomba_stawianie(Klawiatura1.STMZwracanie2()), Gracz2, Gracz1));
+                    Mapa1.Logika_bomba(licznik_klatek, Gracz2, Gracz1);
+                    Gracz1.Aktualizuj_Pozycje(Mapa1.kolizje(Gracz1.Position, Klawiatura1.STMZwracanie1(), Gracz1.kara));
+                    Gracz2.Aktualizuj_Pozycje(Mapa1.kolizje(Gracz2.Position, Klawiatura1.STMZwracanie2(), Gracz2.kara));
+                }
+                #endregion
+                #region --------------------Death - Delay
+                Mapa1.Smierc_delay(Gracz1);
+                Mapa1.Smierc_delay(Gracz2);
+                #endregion
             }
-            #endregion
-            #region STM STEROWANIE
-           if ((int)Menu1.CurrentControllerState==2)
-            {
-                Gracz1.Player_Poruszanie(Klawiatura1.STMZwracanie1(), graphics);
-                Mapa1.Sprawdz_Bonus(Gracz1, Gracz2, licznik_klatek);
-                Gracz2.Player_Poruszanie(Klawiatura1.STMZwracanie2(), graphics);
-                Mapa1.Sprawdz_Bonus(Gracz2, Gracz1, licznik_klatek);
-                Gracz1.Zwieksz_liczbe_bomb_postawionych(Mapa1.stawianie_bomby(Gracz1.Logika_Bomba_stawianie(Klawiatura1.STMZwracanie1()), Gracz1, Gracz2));
-                Mapa1.Logika_bomba(licznik_klatek, Gracz1, Gracz2);
-                Gracz2.Zwieksz_liczbe_bomb_postawionych(Mapa1.stawianie_bomby(Gracz2.Logika_Bomba_stawianie(Klawiatura1.STMZwracanie2()), Gracz2, Gracz1));
-                Mapa1.Logika_bomba(licznik_klatek, Gracz2, Gracz1);
-                Gracz1.Aktualizuj_Pozycje(Mapa1.kolizje(Gracz1.Position, Klawiatura1.STMZwracanie1(), Gracz1.kara));
-                Gracz2.Aktualizuj_Pozycje(Mapa1.kolizje(Gracz2.Position, Klawiatura1.STMZwracanie2(), Gracz2.kara));
-            }
-            #endregion
-            /*
-            #region --------------------Player1 Movement
-            Gracz1.Player_Poruszanie(Klawiatura1.STMZwracanie1(), graphics); 
-           // Gracz1.Player_Poruszanie(Klawiatura1.Zwracanie(), graphics);
-            Mapa1.Sprawdz_Bonus(Gracz1,Gracz2,licznik_klatek);
-            #endregion
-            #region --------------------Player2 Movement           
-            Gracz2.Player_Poruszanie(Klawiatura1.STMZwracanie2(), graphics);    
-          //  Gracz2.Player_Poruszanie(Klawiatura1.Zwracanie2(),graphics);             
-            Mapa1.Sprawdz_Bonus(Gracz2,Gracz1,licznik_klatek);
-            #endregion
-            #region --------------------Player1 Bomb Logic
-            Gracz1.Zwieksz_liczbe_bomb_postawionych(Mapa1.stawianie_bomby(Gracz1.Logika_Bomba_stawianie(Klawiatura1.STMZwracanie1()), Gracz1, Gracz2));
-           // Gracz1.Zwieksz_liczbe_bomb_postawionych(Mapa1.stawianie_bomby(Gracz1.Logika_Bomba_stawianie(Klawiatura1.Zwracanie()), Gracz1,Gracz2));
-            Mapa1.Logika_bomba(licznik_klatek, Gracz1,Gracz2);
-            #endregion
-            #region --------------------Player2 Bomb Logic
-            Gracz2.Zwieksz_liczbe_bomb_postawionych(Mapa1.stawianie_bomby(Gracz2.Logika_Bomba_stawianie(Klawiatura1.STMZwracanie2()), Gracz2, Gracz1));   
-          //  Gracz2.Zwieksz_liczbe_bomb_postawionych(Mapa1.stawianie_bomby(Gracz2.Logika_Bomba_stawianie(Klawiatura1.Zwracanie2()),Gracz2, Gracz1));   
-            Mapa1.Logika_bomba(licznik_klatek, Gracz2,Gracz1);
-            #endregion
-            #region --------------------Collisions
-            //-----------------------------------------------------------------------------------------------------------------Kolizje :  Gracz1 -----------------------------------------------------------------------------
-            Gracz1.Aktualizuj_Pozycje(Mapa1.kolizje(Gracz1.Position, Klawiatura1.STMZwracanie1(), Gracz1.kara));
-          //  Gracz1.Aktualizuj_Pozycje(Mapa1.kolizje(Gracz1.Position, Klawiatura1.Zwracanie(),Gracz1.kara));
-            //-----------------------------------------------------------------------------------------------------------------Kolizje :  Gracz2 -----------------------------------------------------------------------------
-            Gracz2.Aktualizuj_Pozycje(Mapa1.kolizje(Gracz2.Position, Klawiatura1.STMZwracanie2(), Gracz2.kara)); 
-           // Gracz2.Aktualizuj_Pozycje(Mapa1.kolizje(Gracz2.Position, Klawiatura1.Zwracanie2(),Gracz2.kara));
-            #endregion
-            */
-            #region --------------------Death - Delay
-            Mapa1.Smierc_delay(Gracz1);
-            Mapa1.Smierc_delay(Gracz2);
-            #endregion
         }
         public Game1()
         {
@@ -146,6 +120,7 @@ namespace BrickBlaster
                 {
                     if (Graphic.muzykainstancja.State != SoundState.Playing)
                     {
+                        if(Sound==true)
                         Graphic.muzykainstancja.Play();
                     }
                     Logika_Gry();
@@ -175,15 +150,14 @@ namespace BrickBlaster
                keyboardState = Keyboard.GetState();
                Menu1.Menu_Opcje(keyboardState, spriteBatch, GraphicsDevice, Graphic, gameTime);
            }
+           if (GameState == Stan.Credits)
+           {
+               Menu1.Menu_Credits(keyboardState, spriteBatch, GraphicsDevice, Graphic, gameTime);
+           }
            if (GameState == Stan.Menu)
            {
-              /* KeyboardState temp=keyboardState;
-               keyboardState = Keyboard.GetState();
-               if (keyboardState != temp)
-               {*/
                    keyboardState = Keyboard.GetState();
                    Menu1.Menu_Logika(keyboardState, spriteBatch, GraphicsDevice, Graphic, gameTime);
-              // }
            }
            
 #endregion

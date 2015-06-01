@@ -14,13 +14,15 @@ namespace BrickBlaster
 {
     class Menu
     {
+        int x = 190;
+        int y = 750;
         public SoundEffect menu_play_sound;
         public SoundEffect menu_przeskok_sound;
         public int CurrentMenuState = 1;
         public int CurrentOptionsState = 1;
         public  int CurrentControllerState = 1;
         public enum menu { Play = 1, Options = 2, Credits = 3, Exit = 4 };
-        public enum oMenu { Controller=1, Back = 2 };
+        public enum oMenu { Controller=1, Sound = 2 };
         public enum oController { Keyboard = 1, STM = 2 };
         public  void Menu_Logika( KeyboardState keyboardState,SpriteBatch spriteBatch, GraphicsDevice GraphicsDevice,Graphic graphic,GameTime gameTime)
         {
@@ -31,6 +33,7 @@ namespace BrickBlaster
                     if (CurrentMenuState > (int)menu.Play)
                         CurrentMenuState--;
  
+                    if(Game1.Sound==true)
                     menu_przeskok_sound.Play();
                 }
                 if (keyboardState.IsKeyDown(Keys.Down))
@@ -38,6 +41,7 @@ namespace BrickBlaster
                     if (CurrentMenuState < (int)menu.Exit)
                         CurrentMenuState++;
 
+                    if (Game1.Sound == true)
                     menu_przeskok_sound.Play();
                 }
                 graphic.Grafika_Menu(spriteBatch,CurrentMenuState,gameTime);
@@ -46,6 +50,8 @@ namespace BrickBlaster
                     if ((int)CurrentMenuState == (int)menu.Play)
                     {
                         Game1.GameState = Game1.Stan.Gra;
+
+                        if (Game1.Sound == true)
                         menu_play_sound.Play();
                         Thread.Sleep(500);
                     }
@@ -65,14 +71,16 @@ namespace BrickBlaster
             {
                 if (CurrentOptionsState > (int)oMenu.Controller)
                     CurrentOptionsState--;
-                else
 
+                 if (Game1.Sound == true)
                 menu_przeskok_sound.Play();
             }
             if (keyboardState.IsKeyDown(Keys.Down))
             {
-                if (CurrentOptionsState < (int)oMenu.Back)
-                    CurrentOptionsState++;               
+                if (CurrentOptionsState < (int)oMenu.Sound)
+                    CurrentOptionsState++;
+
+                if (Game1.Sound == true)
                 menu_przeskok_sound.Play();
             }
             if (keyboardState.IsKeyDown(Keys.Right)&&CurrentOptionsState==(int)oMenu.Controller)
@@ -86,6 +94,8 @@ namespace BrickBlaster
                 {
                     CurrentControllerState--;
                 }
+
+                if (Game1.Sound == true)
                 menu_przeskok_sound.Play();
             }
             if (keyboardState.IsKeyDown(Keys.Left) && CurrentOptionsState == (int)oMenu.Controller)
@@ -99,14 +109,54 @@ namespace BrickBlaster
                 {
                     CurrentControllerState++;
                 }
+
+                if (Game1.Sound == true)
                 menu_przeskok_sound.Play();
             }
-            graphic.Grafika_Menu2(spriteBatch, CurrentOptionsState,CurrentControllerState, gameTime);
+
+
+            if ((keyboardState.IsKeyDown(Keys.Right) || keyboardState.IsKeyDown(Keys.Left))&& CurrentOptionsState == (int)oMenu.Sound)
+            {
+                Thread.Sleep(100);
+                if (Game1.Sound==true)
+                {
+                    Game1.Sound = false;
+                }
+                else
+                {
+                    Game1.Sound = true;
+                }
+
+                if (Game1.Sound == true)
+                menu_przeskok_sound.Play();
+            }
+           
+            graphic.Grafika_Menu2(spriteBatch, CurrentOptionsState,CurrentControllerState, gameTime, Game1.Sound);
             if (keyboardState.IsKeyDown(Keys.Escape))
             {
                 Thread.Sleep(50);
                     Game1.GameState = Game1.Stan.Menu;
             }
+        }
+        public void Menu_Credits(KeyboardState keyboardState, SpriteBatch spriteBatch, GraphicsDevice GraphicsDevice, Graphic graphic, GameTime gameTime)
+        {
+                 if (keyboardState.IsKeyDown(Keys.Escape))
+                 {
+                     Game1.GameState = Game1.Stan.Menu;
+                 }
+                 else
+                 {
+                     if (y > -330)
+                     {
+                         y--;
+                     }
+                     else
+                     {
+                         y = 750;
+                     }
+                     keyboardState = Keyboard.GetState();
+                     graphic.Grafika_Credits(spriteBatch, gameTime, x, y);
+                 }                
         }
     }
 }

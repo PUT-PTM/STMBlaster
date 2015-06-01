@@ -97,7 +97,7 @@ namespace BrickBlaster
             axisY = _receiver.axisY;
             button1state = _receiver.button1state;
             #region DEBUG axis Messages
-           /* Debug.WriteLine("axisX = " + axisX);
+            /*Debug.WriteLine("axisX = " + axisX);
             Debug.WriteLine("axisY = " + axisY);
             Debug.WriteLine("axisZ = " + axisZ);*/
             #endregion
@@ -107,7 +107,7 @@ namespace BrickBlaster
                 tab[i] = false;
             }
             
-            if (axisY>115&& axisY<130&&axisX<3&& axisZ>0&&axisZ<50)
+            if (axisY>111&& axisY<130&&axisX<3&& axisZ>0&&axisZ<55)
             {
                 tab[(int)klawisz.Left] = true;                
             }

@@ -81,8 +81,15 @@ namespace BrickBlaster
         Texture2D menuExit;
         Texture2D menuCredits;
         Texture2D menuKeyboard;
+        Texture2D menuKeyboard2;
         Texture2D menuSTM;
+        Texture2D menuSTM2;
+        Texture2D menuMusicON;
+        Texture2D menuMusicON2;
+        Texture2D menuMusicOFF;
+        Texture2D menuMusicOFF2;
         Texture2D menuBack;
+        Texture2D credits;
         #endregion
         #region-------------------------------------Variables-------------------------------------------------------
         int zamiana = 0;
@@ -195,7 +202,14 @@ namespace BrickBlaster
             menuCredits = Content.Load<Texture2D>("menu_credits");
             menuExit = Content.Load<Texture2D>("menu_exit");
             menuKeyboard = Content.Load<Texture2D>("menu_options_keyboard");
+            menuKeyboard2 = Content.Load<Texture2D>("menu_options_keyboard2");
             menuSTM = Content.Load<Texture2D>("menu_options_stm");
+            menuSTM2 = Content.Load<Texture2D>("menu_options_stm2");
+            menuMusicON = Content.Load<Texture2D>("menu_options_musicON");
+            menuMusicON2 = Content.Load<Texture2D>("menu_options_musicON2");
+            menuMusicOFF = Content.Load<Texture2D>("menu_options_musicOFF");
+            menuMusicOFF2 = Content.Load<Texture2D>("menu_options_musicOFF2");
+            credits = Content.Load<Texture2D>("credits");
         }
         public int ZamianaUstaw()
         {
@@ -658,6 +672,9 @@ namespace BrickBlaster
                     Gracz2.Position = new Vector2(900, 630);
                     Gracz2.zyje = true;
                     Gracz2.kara = false;
+                    Gracz2.maxBomb = 2;
+                    Gracz2.szybkość = 2;
+                    Gracz2.moc = 3;
                     GameState = Game1.Stan.Gra;
                 }
             }
@@ -673,12 +690,28 @@ namespace BrickBlaster
                 if (opcja == 4)
                     spriteBatch.Draw(menuExit, new Vector2(0, -128), Color.White);
         }
-        public void Grafika_Menu2(SpriteBatch spriteBatch, int opcja,int opcjaController, GameTime gameTime)
+        public void Grafika_Menu2(SpriteBatch spriteBatch, int opcja,int opcjaController, GameTime gameTime, bool Sound)
         {
-                if (opcjaController == 1)
+                if (opcjaController == 1 && opcja ==1 && Sound == true )
                 spriteBatch.Draw(menuKeyboard, new Vector2(0, -128), Color.White);
-                if (opcjaController == 2)
+                if (opcjaController == 2 && opcja==1 && Sound == true)
                 spriteBatch.Draw(menuSTM, new Vector2(0, -128), Color.White);
+                if (opcjaController == 1 && opcja==1 && Sound == false)
+                spriteBatch.Draw(menuKeyboard2, new Vector2(0, -128), Color.White);
+                if (opcjaController == 2 && opcja==1 && Sound == false)
+                spriteBatch.Draw(menuSTM2, new Vector2(0, -128), Color.White);
+                if (opcjaController == 1 && opcja==2 && Sound == true)
+                spriteBatch.Draw(menuMusicON, new Vector2(0, -128), Color.White);
+                if (opcjaController == 2 && opcja==2 && Sound == true)
+                spriteBatch.Draw(menuMusicON2, new Vector2(0, -128), Color.White);
+                if (opcjaController == 1 && opcja==2 && Sound == false)
+                spriteBatch.Draw(menuMusicOFF, new Vector2(0, -128), Color.White);
+                if (opcjaController == 2 && opcja==2 && Sound == false)
+                spriteBatch.Draw(menuMusicOFF2, new Vector2(0, -128), Color.White);
+        }
+        public void Grafika_Credits(SpriteBatch spriteBatch, GameTime gameTime, int x , int y)
+        {
+            spriteBatch.Draw(credits, new Vector2(x, y), Color.White);
         }
         public   void Sprawdzanie_pol_tabeli(int i, int l, Mapa Mapa,SpriteBatch spriteBatch)
         {
