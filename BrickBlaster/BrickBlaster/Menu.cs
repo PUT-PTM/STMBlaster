@@ -145,6 +145,9 @@ namespace BrickBlaster
                      Game1.GameState = Game1.Stan.Menu;
                       x = 190;
                       y = 745;
+                      
+                      if (menu_Credits.State == SoundState.Playing)
+                     menu_Credits.Stop();
                  }
                  else
                  {
@@ -154,7 +157,7 @@ namespace BrickBlaster
                      }
                      else
                      {
-                         y = 750;
+                         y = 745;
                      }
                      keyboardState = Keyboard.GetState();
                      graphic.Grafika_Credits(spriteBatch, gameTime, x, y);
