@@ -15,7 +15,7 @@ namespace BrickBlaster
     class Menu
     {
         int x = 190;
-        int y = 750;
+        int y = 745;
         public SoundEffect menu_play_sound;
         public SoundEffect menu_przeskok_sound;
         public int CurrentMenuState = 1;
@@ -143,6 +143,8 @@ namespace BrickBlaster
                  if (keyboardState.IsKeyDown(Keys.Escape))
                  {
                      Game1.GameState = Game1.Stan.Menu;
+                      x = 190;
+                      y = 745;
                  }
                  else
                  {
