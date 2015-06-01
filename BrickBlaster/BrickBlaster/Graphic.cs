@@ -88,7 +88,6 @@ namespace BrickBlaster
         Texture2D menuMusicON2;
         Texture2D menuMusicOFF;
         Texture2D menuMusicOFF2;
-        Texture2D menuBack;
         Texture2D credits;
         #endregion
         #region-------------------------------------Variables-------------------------------------------------------
@@ -98,6 +97,7 @@ namespace BrickBlaster
         #endregion
         #region -------------------------------------SoundEffects-declaration---------------------------------
         public SoundEffect muzyka;
+        public SoundEffect muzyka_credits;
         public SoundEffect remis_sound;
         public  SoundEffect p1w_sound;
         public SoundEffect p2w_sound;
@@ -187,12 +187,14 @@ namespace BrickBlaster
             Mapa1.lost = Content.Load<SoundEffect>("lost");
             Mapa1.Bonus = Content.Load<SoundEffect>("bonus");
             muzyka = Content.Load<SoundEffect>("muzyka");
+            muzyka_credits = Content.Load<SoundEffect>("dyna_credits2");
             remis_sound = Content.Load<SoundEffect>("remis_sound");
             p1w_sound = Content.Load<SoundEffect>("player1wins");
             p2w_sound = Content.Load<SoundEffect>("player2wins");
             Mapa1.Czacha = Content.Load<SoundEffect>("czaszka");
             muzykainstancja = muzyka.CreateInstance();
             Menu1.menu_play_sound = Content.Load<SoundEffect>("menu_play_sound");
+            Menu1.menu_Credits = muzyka_credits.CreateInstance();
             Menu1.menu_przeskok_sound = Content.Load<SoundEffect>("menu_przeskok_sound");
         }
         public void Load_Menu_Graphic()
@@ -548,6 +550,7 @@ namespace BrickBlaster
                 Man_gora_krok = Content.Load<Texture2D>("Dead");
                 Man_gora_krok2 = Content.Load<Texture2D>("Dead");
                 spriteBatch.Draw(Player2win, new Vector2(200, 100), Color.White);
+                if(Game1.Sound==true)
                 p2w_sound.Play();
                 GameState = Game1.Stan.Reset1;
             }
@@ -576,6 +579,7 @@ namespace BrickBlaster
                 Man2_stoi = Content.Load<Texture2D>("Dead2");
                 Man2_gora_krok = Content.Load<Texture2D>("Dead2");
                 Man2_gora_krok2 = Content.Load<Texture2D>("Dead2");
+                if(Game1.Sound==true)
                 p1w_sound.Play();
                 GameState = Game1.Stan.Reset2;
             }
@@ -615,6 +619,7 @@ namespace BrickBlaster
                 Man2_stoi = Content.Load<Texture2D>("Dead2");
                 Man2_gora_krok = Content.Load<Texture2D>("Dead2");
                 Man2_gora_krok2 = Content.Load<Texture2D>("Dead2");
+                if(Game1.Sound==true)
                 remis_sound.Play();
                 GameState = Game1.Stan.Reset3;
             }

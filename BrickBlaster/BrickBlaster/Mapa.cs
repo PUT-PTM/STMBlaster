@@ -400,10 +400,7 @@ namespace BrickBlaster
                 {
                     Logika_Smierc(i, l + k, Gracz1);
                     Logika_Smierc(i, l+k, Gracz2);
-                  /*  if (Gracz1.zyje == false)
-                    {
-                        break;
-                    }*/
+
                     if (tab_mapa[i, l + k] == (int)brick.Breakable)
                     {
                         Losowanie = rnd.Next(1, 10);
@@ -509,6 +506,7 @@ namespace BrickBlaster
                 }
             }
             Gracz1.postawionychBomb--;
+            if(Game1.Sound==true)
             wybuch.Play();
         }       
         public void Logika_Smierc(int i, int l, Player Gracz1)
@@ -516,6 +514,7 @@ namespace BrickBlaster
             if ((Gracz1.Position.X > 230 + (i * 50)) && (Gracz1.Position.X < 315 + (i * 50)) && (Gracz1.Position.Y > 12 + (l * 50)) && (Gracz1.Position.Y < 77 + (l * 50)))
             {
                 Gracz1.zyje = false;
+                if(Game1.Sound==true)
                 lost.Play();
             }
         }
@@ -529,6 +528,7 @@ namespace BrickBlaster
                          if (tab_mapa[i, l] == (int)fire.Right || tab_mapa[i, l] == (int)fire.Left || tab_mapa[i, l] == (int)fire.Down || tab_mapa[i, l] == (int)fire.Up || tab_mapa[i, l] == (int)fire.RightBonusBomb || tab_mapa[i, l] == (int)fire.RightBonusPower || tab_mapa[i, l] == (int)fire.LeftBonusBomb || tab_mapa[i, l] == (int)fire.LeftBonusPower || tab_mapa[i, l] == (int)fire.DownBonusBomb || tab_mapa[i, l] == (int)fire.DownBonusPower || tab_mapa[i, l] == (int)fire.UpBonusBomb || tab_mapa[i, l] == (int)fire.UpBonusPower || tab_mapa[i, l] == (int)fire.Middle || tab_mapa[i, l] == (int)fire.Poziom || tab_mapa[i, l] == (int)fire.Pion || tab_mapa[i, l] == (int)fire.LeftPunishPB || tab_mapa[i, l] == (int)fire.LeftPunishSides || tab_mapa[i, l] == (int)fire.RightPunishPB || tab_mapa[i, l] == (int)fire.RightPunishSides || tab_mapa[i, l] == (int)fire.UpPunishPB || tab_mapa[i, l] == (int)fire.UpPunishSides || tab_mapa[i, l] == (int)fire.DownPunishPB || tab_mapa[i, l] == (int)fire.DownPunishSides)
                          {
                                Gracz1.zyje = false;
+                             if(Game1.Sound==true)
                                lost.Play();
                          }
                 }
@@ -545,6 +545,7 @@ namespace BrickBlaster
                     Gracz1.maxBomb++;
                 }
                 tab_mapa[j, u] = 0;
+                if(Game1.Sound==true)
                Bonus.Play();
             }
             if (tab_mapa[j, u] == (int)bonus.Power)
@@ -554,6 +555,7 @@ namespace BrickBlaster
                     Gracz1.moc++;
                 }
                 tab_mapa[j, u] = 0;
+                if(Game1.Sound==true)
                Bonus.Play();
             }
             if (tab_mapa[j, u] == (int)bonus.PunishBP)
@@ -567,6 +569,7 @@ namespace BrickBlaster
                     Gracz1.moc--;
                 }
                  tab_mapa[j, u] = 0;
+                if(Game1.Sound==true)
                  Czacha.Play();
             }
             if (tab_mapa[j, u] == (int)bonus.PunishSides)
@@ -574,6 +577,7 @@ namespace BrickBlaster
                tab_mapa[j, u] = 0;
                Gracz1.licznik_kary = 0;
                Gracz2.kara = true;
+                if(Game1.Sound==true)
                Czacha.Play();
             }
             if (Gracz1.licznik_kary >= 10)

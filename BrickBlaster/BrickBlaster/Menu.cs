@@ -15,9 +15,10 @@ namespace BrickBlaster
     class Menu
     {
         int x = 190;
-        int y = 750;
+        int y = 745;
         public SoundEffect menu_play_sound;
         public SoundEffect menu_przeskok_sound;
+        public SoundEffectInstance menu_Credits;
         public int CurrentMenuState = 1;
         public int CurrentOptionsState = 1;
         public  int CurrentControllerState = 1;
@@ -58,7 +59,10 @@ namespace BrickBlaster
                     if ((int)CurrentMenuState == (int)menu.Options)
                         Game1.GameState = Game1.Stan.Options;
                     if ((int)CurrentMenuState == (int)menu.Credits)
+                    {
                         Game1.GameState = Game1.Stan.Credits;
+                        
+                    }
                     if ((int)CurrentMenuState == (int)menu.Exit)
                         Game1.GameState = Game1.Stan.Exit;
                 }
@@ -140,9 +144,18 @@ namespace BrickBlaster
         }
         public void Menu_Credits(KeyboardState keyboardState, SpriteBatch spriteBatch, GraphicsDevice GraphicsDevice, Graphic graphic, GameTime gameTime)
         {
+             if (menu_Credits.State != SoundState.Playing)
+                    {
+                        if(Game1.Sound==true)
+                        menu_Credits.Play();
+                    }                                   
                  if (keyboardState.IsKeyDown(Keys.Escape))
                  {
                      Game1.GameState = Game1.Stan.Menu;
+                     x = 190;
+                     y = 745;
+                     if (menu_Credits.State == SoundState.Playing)
+                     menu_Credits.Stop();
                  }
                  else
                  {
@@ -152,7 +165,7 @@ namespace BrickBlaster
                      }
                      else
                      {
-                         y = 750;
+                         y = 745;
                      }
                      keyboardState = Keyboard.GetState();
                      graphic.Grafika_Credits(spriteBatch, gameTime, x, y);
