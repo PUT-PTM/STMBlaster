@@ -3,12 +3,12 @@ STMBlaster
 ----------------------------------------------------------------------------------------------------------------------------------------------
 Overview
 
-That project is a game bomberman-like. It's two-players game only.
+That project is a bomberman-like game. It's a two-players only game.
 ----------------------------------------------------------------------------------------------------------------------------------------------
 Description
 
-Project include :
-- application on PC - BrickBlaster
+Project includes :
+- PC application - BrickBlaster
 
 	Most important modules :
 		- Graphic.cs
@@ -18,7 +18,7 @@ Project include :
 		- Player.cs
 		- STMReceiver.cs
 
-- project on STM32F4 - STM32DiscoveryVCP-master
+- STM32F4 project - STM32DiscoveryVCP-master
 ----------------------------------------------------------------------------------------------------------------------------------------------
 Tools
 
@@ -30,7 +30,7 @@ Tools
 How to run
 
 Version 1.0.0 
-If you want to play on microcontroller you need STM32F4 - one for each player.
+If you want to play using a microcontroller you need STM32F4 - one for each player.
 You need to install VCP drivers from http://www.st.com/web/en/catalog/tools/PF257938#.
 ----------------------------------------------------------------------------------------------------------------------------------------------
 How to compile
