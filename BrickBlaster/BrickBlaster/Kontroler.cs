@@ -10,6 +10,7 @@ using Microsoft.Xna.Framework.GamerServices;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Media;
 using System.Diagnostics;
+using System.IO;
 namespace BrickBlaster
 {
     public class Kontroler
@@ -19,10 +20,18 @@ namespace BrickBlaster
         KeyboardState keyboardState;
         private STMReceiver _receiver;
         private STMReceiver _receiver2;
+        private TextReader czyt;                 
         public Kontroler()
         {
-            _receiver = new STMReceiver("COM4");
-            _receiver2 = new STMReceiver("COM5");
+            czyt = new StreamReader("porty.txt");  
+            String tekst;   
+            tekst = czyt.ReadLine();
+            Debug.WriteLine("pierwszy port : " + tekst);
+            _receiver = new STMReceiver(tekst);
+            tekst = czyt.ReadLine();
+            Debug.WriteLine("drugi port : " + tekst);
+            _receiver2 = new STMReceiver(tekst);
+            czyt.Close();
             _receiver.StartListening();
             _receiver2.StartListening();
         }
@@ -152,19 +161,19 @@ namespace BrickBlaster
                 tab[i] = false;
             }
 
-            if (axisY > 115 && axisY < 130 && axisX < 3 && axisZ > 0 && axisZ < 50)
+            if (axisY > 100 && axisY < 145 && axisX < 4 && axisZ > 0 && axisZ < 50)
             {
                 tab[(int)klawisz.Left] = true;
             }
-            if (axisY > 115 && axisY < 130 && axisX > 7 && axisZ > 0 && axisZ < 50)
+            if (axisY > 100 && axisY < 145 && axisX > 6 && axisZ > 0 && axisZ < 50)
             {
                 tab[(int)klawisz.Right] = true;
             }
-            if (axisY > 130 && axisX > -10 && axisX < 5 && axisZ > 40 && axisZ < 65)
+            if (axisY > 130 && axisX > -10 && axisX < 10 && axisZ > 40 && axisZ < 65)
             {
                 tab[(int)klawisz.Up] = true;
             }
-            if (axisY < 115 && axisX > -10 && axisX < 5 && axisZ > 40 && axisZ < 65)
+            if (axisY < 115 && axisX > -10 && axisX < 10 && axisZ > 40 && axisZ < 65)
             {
                 tab[(int)klawisz.Down] = true;
             }

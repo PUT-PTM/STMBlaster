@@ -280,13 +280,8 @@ namespace BrickBlaster
                 {
                     Logika_Smierc(i + k, l, Gracz1);
                     Logika_Smierc(i + k, l, Gracz2);
-                   /* if (Gracz1.zyje == false)
-                    {
-                        break;
-                    }*/
                     if (tab_mapa[i + k, l] == (int)brick.Breakable)
                     {
-
                         Losowanie = rnd.Next(1, 20);
                         if (Losowanie == 3 || Losowanie == 9)
                         {
@@ -308,25 +303,21 @@ namespace BrickBlaster
                         {
                             tab_mapa[i + k, l] = (int)fire.Right;
                         }
-                        // postawionych_bomb--;
                         break;
                     }
                     if (tab_mapa[i + k, l] == (int)brick.Unbreakable)
                     {
-                        // postawionych_bomb--;
                         break;
                     }
                     if (tab_mapa[i + k, l] >= Gracz1.idBomb && tab_mapa[i + k, l] <= (Gracz1.idBomb + Gracz1.timerBomby))
                     {
                         tab_mapa[i + k, l] = (int)fire.Middle;
-                        //postawionych_bomb--;
                         Logika_Bomba_Wybuchv2(i + k, l, Gracz1, Gracz2);
                         break;
                     }
                     if (tab_mapa[i + k, l] >= Gracz2.idBomb && tab_mapa[i + k, l] <= (Gracz2.idBomb + Gracz2.timerBomby))
                     {
                         tab_mapa[i + k, l] = (int)fire.Middle;
-                        //postawionych_bomb--;
                         Logika_Bomba_Wybuchv2(i + k, l, Gracz2, Gracz1);
                         break;
                     }
@@ -343,10 +334,7 @@ namespace BrickBlaster
                 {
                     Logika_Smierc(i - k, l, Gracz1);
                     Logika_Smierc(i -k, l, Gracz2);
-                   /* if (Gracz1.zyje == false)
-                    {
-                        break;
-                    }*/
+
                     if (tab_mapa[i - k, l] == (int)brick.Breakable)
                     {
                         Losowanie = rnd.Next(1, 20);
@@ -454,10 +442,6 @@ namespace BrickBlaster
                 {
                     Logika_Smierc(i, l - k, Gracz1);
                     Logika_Smierc(i, l-k, Gracz2);
-                   /* if (Gracz1.zyje == false)
-                    {
-                        break;
-                    }*/
                     if (tab_mapa[i, l - k] == (int)brick.Breakable)
                     {                                       //BONUSY POJAWIANIE SIE ------------------------------------------------------
                         Losowanie = rnd.Next(1, 10);
@@ -589,6 +573,24 @@ namespace BrickBlaster
             {
                 Gracz1.licznik_kary++;
             }
+        }
+        public void reset_logiki(Player Gracz1, Player Gracz2, Mapa Mapa1 )
+        {
+            Mapa1.Stawianie_klockow();
+            Gracz1.postawionychBomb = 0;
+            Gracz1.maxBomb = 2;
+            Gracz1.szybkość = 2;
+            Gracz1.moc = 3;
+            Gracz1.kara = false;
+            Gracz1.Position = new Vector2(275, 55);
+            Gracz1.zyje = true;
+            Gracz2.postawionychBomb = 0;
+            Gracz2.Position = new Vector2(900, 630);
+            Gracz2.zyje = true;
+            Gracz2.kara = false;
+            Gracz2.maxBomb = 2;
+            Gracz2.szybkość = 2;
+            Gracz2.moc = 3;
         }
     }
 }

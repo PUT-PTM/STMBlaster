@@ -54,7 +54,7 @@ namespace BrickBlaster
 
                         if (Game1.Sound == true)
                         menu_play_sound.Play();
-                        Thread.Sleep(500);
+                        Thread.Sleep(50);
                     }
                     if ((int)CurrentMenuState == (int)menu.Options)
                         Game1.GameState = Game1.Stan.Options;

@@ -25,7 +25,7 @@ namespace BrickBlaster
         Player Gracz2 = new Player(2300);
         Menu Menu1 = new Menu();
         Vector2 Position = new Vector2(275, 55);
-        public enum Stan {Gra=1,Reset1=2,Reset2=3,Reset3=4,Remis=5,Przegrana1=6,Przegrana2=7,Credits=8,Options=9,Exit=10,Menu=11};  
+        public enum Stan {Gra=1,Reset1=2,Reset2=3,Reset3=4,Remis=5,Przegrana1=6,Przegrana2=7,Credits=8,Options=9,Exit=10,Menu=11,Pause=12};  
         Mapa Mapa1 = new Mapa();
         KeyboardState keyboardState;
         public static Stan GameState = Stan.Gra;
@@ -34,6 +34,7 @@ namespace BrickBlaster
         public static int licznik_klatek = 0;
         public static bool Sound = true;
         #endregion
+
         void Logika_Gry()
         {
             if (GameState == Stan.Gra)
@@ -51,6 +52,13 @@ namespace BrickBlaster
                     Mapa1.Logika_bomba(licznik_klatek, Gracz2, Gracz1);
                     Gracz1.Aktualizuj_Pozycje(Mapa1.kolizje(Gracz1.Position, Klawiatura1.Zwracanie(), Gracz1.kara));
                     Gracz2.Aktualizuj_Pozycje(Mapa1.kolizje(Gracz2.Position, Klawiatura1.Zwracanie2(), Gracz2.kara));
+                    if (keyboardState.IsKeyDown(Keys.P))
+                    {
+                        GameState = Stan.Pause;
+                        Sound = false;
+                    }
+                  //  if (keyboardState.IsKeyDown(Keys.M))
+                    //    Sound = !Sound ;
                 }
                 #endregion
                 #region STM STEROWANIE
@@ -66,6 +74,13 @@ namespace BrickBlaster
                     Mapa1.Logika_bomba(licznik_klatek, Gracz2, Gracz1);
                     Gracz1.Aktualizuj_Pozycje(Mapa1.kolizje(Gracz1.Position, Klawiatura1.STMZwracanie1(), Gracz1.kara));
                     Gracz2.Aktualizuj_Pozycje(Mapa1.kolizje(Gracz2.Position, Klawiatura1.STMZwracanie2(), Gracz2.kara));
+                    if (keyboardState.IsKeyDown(Keys.P))
+                    {
+                        GameState = Stan.Pause;
+                        Sound = false;
+                    }
+                    //if (keyboardState.IsKeyDown(Keys.M))
+                      //  Sound = !Sound;
                 }
                 #endregion
                 #region --------------------Death - Delay
@@ -73,6 +88,7 @@ namespace BrickBlaster
                 Mapa1.Smierc_delay(Gracz2);
                 #endregion
             }
+            
         }
         public Game1()
         {
@@ -84,8 +100,7 @@ namespace BrickBlaster
             Graphic.PrzypiszReferencje(graphics, Content, Mapa1, Menu1, Gracz1, Gracz2, Klawiatura1, GameState, keyboardState);
         }    
         protected override void Initialize()
-        {
-            // TODO: Add your initialization logic here         
+        {        
             Gracz1.Position = new Vector2(275, 55);
             Gracz2.Position = new Vector2(900, 630);
             Mapa1.Stawianie_klockow();
@@ -94,7 +109,6 @@ namespace BrickBlaster
         }
         protected override void LoadContent()
         {
-            // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
             Graphic.Load_Interface_Graphic();
             Graphic.Load_Player_Graphic();
@@ -143,8 +157,11 @@ namespace BrickBlaster
             spriteBatch.Begin();
             #region -------------------Graphic methods
             //------------------------------------------------------------------------------------------------Mapa Grafika-------------------------------------------------------------------------------------------------------
-           if(GameState == Stan.Gra)
-            Graphic.Grafika_Ca³a(spriteBatch);
+            if (GameState == Stan.Gra)
+            {
+                Graphic.Grafika_Ca³a(spriteBatch);
+                Graphic.muzykainstancja.Play();
+            }
            if (GameState == Stan.Options)
            {
                keyboardState = Keyboard.GetState();
@@ -158,6 +175,20 @@ namespace BrickBlaster
            {
                    keyboardState = Keyboard.GetState();
                    Menu1.Menu_Logika(keyboardState, spriteBatch, GraphicsDevice, Graphic, gameTime);
+           }
+           if (GameState == Stan.Pause)
+           {
+               Graphic.muzykainstancja.Stop();
+               keyboardState = Keyboard.GetState();
+               if (keyboardState.IsKeyDown(Keys.O))
+                   GameState = Stan.Gra;
+               if (keyboardState.IsKeyDown(Keys.Escape))
+               {
+                   GameState = Stan.Menu;
+                   Mapa1.reset_logiki(Gracz1, Gracz2, Mapa1);
+               }
+               Graphic.Grafika_Ca³a(spriteBatch);
+                         
            }
            
 #endregion

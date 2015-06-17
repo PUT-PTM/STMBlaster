@@ -89,6 +89,12 @@ namespace BrickBlaster
         Texture2D menuMusicOFF;
         Texture2D menuMusicOFF2;
         Texture2D credits;
+        Texture2D pause;
+        Texture2D music_on;
+        Texture2D music_off;
+        Texture2D press_p;
+        Texture2D press_o_resume;
+        Texture2D press_esc;
         #endregion
         #region-------------------------------------Variables-------------------------------------------------------
         int zamiana = 0;
@@ -211,7 +217,13 @@ namespace BrickBlaster
             menuMusicON2 = Content.Load<Texture2D>("menu_options_musicON2");
             menuMusicOFF = Content.Load<Texture2D>("menu_options_musicOFF");
             menuMusicOFF2 = Content.Load<Texture2D>("menu_options_musicOFF2");
+            music_on = Content.Load<Texture2D>("music_on");
+            music_off= Content.Load<Texture2D>("music_off");
+            pause = Content.Load<Texture2D>("pause");
             credits = Content.Load<Texture2D>("credits");
+            press_p = Content.Load<Texture2D>("press_p");
+            press_o_resume = Content.Load<Texture2D>("press_o_resume");
+            press_esc = Content.Load<Texture2D>("press_esc_restart");
         }
         public int ZamianaUstaw()
         {
@@ -468,6 +480,17 @@ namespace BrickBlaster
             }
             Grafika_Interface(spriteBatch);
             Grafika_Smierc(spriteBatch);
+            if (Game1.GameState == Game1.Stan.Pause)
+            {
+                spriteBatch.Draw(pause, new Vector2(175, 150), Color.White);
+                spriteBatch.Draw(press_o_resume, new Vector2(20, 600), Color.White);
+                spriteBatch.Draw(press_esc, new Vector2(20, 580), Color.White);
+            }
+            if (Game1.GameState == Game1.Stan.Gra)
+            {
+                spriteBatch.Draw(press_p, new Vector2(20, 600), Color.White);
+            }
+
             Reset_Gry(spriteBatch);
         }
         public void Grafika_Interface(SpriteBatch spriteBatch)
@@ -475,6 +498,7 @@ namespace BrickBlaster
             spriteBatch.Draw(Player1, new Vector2(75, 0), Color.White);
             spriteBatch.Draw(Power_Bar_Icon, new Vector2(4, 70), Color.White);
             spriteBatch.Draw(Power_Bar, new Vector2(35, 70), Color.White);
+           
             for (int i = 1; i < Gracz1.moc; i++)
             {
                 if (i < 4)
