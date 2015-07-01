@@ -106,7 +106,7 @@ namespace BrickBlaster
             axisY = _receiver.axisY;
             button1state = _receiver.button1state;
             #region DEBUG axis Messages
-            /*Debug.WriteLine("axisX = " + axisX);
+           /* Debug.WriteLine("axisX = " + axisX);
             Debug.WriteLine("axisY = " + axisY);
             Debug.WriteLine("axisZ = " + axisZ);*/
             #endregion
@@ -116,11 +116,11 @@ namespace BrickBlaster
                 tab[i] = false;
             }
             
-            if (axisY>111&& axisY<130&&axisX<3&& axisZ>0&&axisZ<55)
+            if (axisY>111&& axisY<132&&axisX<3&& axisZ>0&&axisZ<58)
             {
                 tab[(int)klawisz.Left] = true;                
             }
-            if (axisY>115&& axisY<130&&axisX>7&& axisZ>0&&axisZ<50)
+            if (axisY>115&& axisY<132&&axisX>10&& axisZ>0&&axisZ<62)
             {
                 tab[(int)klawisz.Right] = true;         
             }
@@ -151,9 +151,9 @@ namespace BrickBlaster
             axisY = _receiver2.axisY;
             button1state = _receiver2.button1state;
             #region DEBUG axis Messages
-            /* Debug.WriteLine("axisX = " + axisX);
+             Debug.WriteLine("axisX = " + axisX);
             Debug.WriteLine("axisY = " + axisY);
-            Debug.WriteLine("axisZ = " + axisZ);*/
+            Debug.WriteLine("axisZ = " + axisZ);
             #endregion
 
             for (int i = 0; i < 5; i++)
@@ -161,19 +161,21 @@ namespace BrickBlaster
                 tab[i] = false;
             }
 
-            if (axisY > 100 && axisY < 145 && axisX < 4 && axisZ > 0 && axisZ < 50)
+
+
+            if (axisY > 111 && axisY < 131 && axisX < 3 && axisZ > 0 && axisZ < 55)
             {
                 tab[(int)klawisz.Left] = true;
             }
-            if (axisY > 100 && axisY < 145 && axisX > 6 && axisZ > 0 && axisZ < 50)
+            if (axisY > 115 && axisY < 132 && axisX > 10 && axisZ > 0 && axisZ < 62)
             {
                 tab[(int)klawisz.Right] = true;
             }
-            if (axisY > 130 && axisX > -10 && axisX < 10 && axisZ > 40 && axisZ < 65)
+            if (axisY > 130 && axisX > -10 && axisX < 5 && axisZ > 40 && axisZ < 65)
             {
                 tab[(int)klawisz.Up] = true;
             }
-            if (axisY < 115 && axisX > -10 && axisX < 10 && axisZ > 40 && axisZ < 65)
+            if (axisY < 118 && axisX > -10 && axisX < 5 && axisZ > 40 && axisZ < 65)
             {
                 tab[(int)klawisz.Down] = true;
             }

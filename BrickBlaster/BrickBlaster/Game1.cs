@@ -11,9 +11,7 @@ using Microsoft.Xna.Framework.Media;
 using System.Threading;
 namespace BrickBlaster
 {
-    /// <summary>
-    /// This is the main type for your game
-    /// </summary>
+  
     public class Game1 : Microsoft.Xna.Framework.Game
     {
         #region --------------------Variables/Objects/etc.
